@@ -13,5 +13,5 @@ def greet(name):
 
 if __name__ == "__main__":
     # Можете використати цей код для перевірки своєї функції
-    name = input("Введіть ваше ім'я: ")
+    name = input()
     print(greet(name))
