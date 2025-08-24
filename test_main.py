@@ -2,12 +2,13 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path.cwd()
 
 def run_prog(given: str) -> str:
-    """Запускає main.py, подає рядок на stdin і повертає stdout."""
+    prog = ROOT / "main.py"
+    assert prog.exists(), f"Не знайдено {prog}"
     cp = subprocess.run(
-        [sys.executable, str(ROOT / "main.py")],
+        [sys.executable, str(prog)],
         input=given,
         text=True,
         capture_output=True,
@@ -18,7 +19,6 @@ def run_prog(given: str) -> str:
 
 def check(name: str):
     out = run_prog(name + "\n")
-    # Перевіряємо точний формат без зайвих пробілів/рядків
     assert out.strip() == f"Привіт, {name}!", (
         f"Очікував: 'Привіт, {name}!'\nОтримав: '{out.strip()}'"
     )
